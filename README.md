@@ -10,14 +10,23 @@ Como herramienta, se ha planteado usar el stack ELK ([ElasticSearch][1], [Logsta
 
 ## ¿Qué piezas hay?
 
-### Elastic Search (ES)
-Ingiere información desde Logstash, usando para ello unos índices que habrá que definir, para que Kibana pueda usarlos.
+### DB
+Container de docker con una base de datos MySQL de nombre reto1, con una sola tabla de nombre reto1 en la que hay dos campos un timestamp con la hora de creacion del registro y un timestamp con la hora de insercion del registro. Los recursos de cpu de este  container se limitan a un 20% de la cpu 0 del sistema.
 
-### Kibana
-Lee datos de Elasticsearch y los muestra en un interfaz grafico (dashboard).
+### server_python
+Container de docker con un servidor web minimo escrito en python que escucha en el puerto 80 y escribe una linea en la base de datos por cada peticion que le llega. En este mismo container hay un proceso en nodejs que guarda estadisticas en un fichero en un volumen compartido (shared/server_stats.log). Este fichero es un csv, la primera linea es el unix epoq y la penultima el numero de inserciones por minuto en la base de datos. Los recursos de cpu de este  container se limitan a un 20% de la cpu 0 del sistema.
+
+### load
+Container que genera carga sobre el servidor web. Tiene un dashboard en el puerto 8091 que se esta exportado al host. Eso quiere decir que podemos ver el estado con http://< ip de la  maquina virtual >:8091
 
 ### Logstash
-Extraerá información de los logs de cada servicio, o bien analizando los contenedores de Docker o bien leyendo directamente de volúmenes compartidos por éstos.
+Lee los datos del csv de estadisticas y los envia a elasticsearch. Work in progress
+
+### Elastic Search (ES)
+almacena las estadisticas y permite que las presente kibana. Work in progress
+
+### Kibana
+Lee datos de Elasticsearch y los muestra en un interfaz grafico (dashboard). Work in progress
 
 ## ¿Cómo nos vamos a organizar?
 
