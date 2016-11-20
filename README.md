@@ -23,10 +23,10 @@ Container que genera carga sobre el servidor web. Tiene un dashboard en el puert
 Lee los datos del csv de estadisticas y los envia a elasticsearch. Work in progress
 
 ### Elastic Search (ES)
-almacena las estadisticas y permite que las presente kibana. Work in progress
+almacena las estadisticas y permite que las presente kibana. Se usara la imagen de docker "elasticsearch" por defecto sin modificar.
 
 ### Kibana
-Lee datos de Elasticsearch y los muestra en un interfaz grafico (dashboard). Work in progress
+Lee datos de Elasticsearch y los muestra en un interfaz grafico (dashboard). Se usara la imagen de docker "kibana" por defecto sin modificar.
 
 ## ¿Cómo nos vamos a organizar?
 
